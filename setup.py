@@ -11,7 +11,7 @@ setup(
     description="Basket is a common toolkit for all MaaS with OpenAI API.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/OrchardUniverse/busket",
+    url="https://github.com/OrchardUniverse/basket",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
