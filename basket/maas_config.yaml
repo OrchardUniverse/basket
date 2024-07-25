@@ -1,4 +1,6 @@
 maas:
+  - name: FreeModel
+    url: https://api.freemodel.ai/v1
   - name: OpenAI
     url: https://api.openai.com/v1
     models:
@@ -25,7 +27,3 @@ maas:
       - moonshot-v1-32k
   - name: ZhiPu
     url: https://open.bigmodel.cn/api/paas/v4/
-  - name: Lepton
-    url: https://llama3-8b.lepton.run/api/v1/
-  - name: Anthropic
-    url: https://api.anthropic.com/v1
