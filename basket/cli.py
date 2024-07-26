@@ -3,9 +3,9 @@ import argparse
 import getpass
 from tabulate import tabulate
 
-from model_client import ModelClient
 from maas_config import MaaSConfig, MaaSProvider
 from auths_config import AuthsConfig
+from openai_util.openai_util import OpenaiUtil
 
 import coloredlogs, logging
 coloredlogs.install()
@@ -13,8 +13,6 @@ coloredlogs.install()
 # TODO: Hanle fail to parse yaml file
 maas_config = MaaSConfig("maas_config.yaml")
 auths_config = AuthsConfig("auths_config.yaml")
-
-client = ModelClient(auths_config.get_current_maas(), auths_config.get_current_model())
 
 def maas_list():
     maas_providers = maas_config.providers
@@ -24,7 +22,12 @@ def maas_list():
     align = ("left", "center", "left")
     for provider in maas_providers:
         # TODO: check auths config to get configured MaaS
-        data.append([provider.name, "*", provider.url])
+        if auths_config.get_auth(provider.name):
+            available_string = "*"
+        else:
+            available_string = ""
+
+        data.append([provider.name, available_string, provider.url])
     print(tabulate(data, headers="firstrow", tablefmt="pretty", colalign=align))
 
 """
@@ -40,8 +43,9 @@ def maas_use(name):
         if set_maas_apikey(maas_provider.name):
             # Update local config file
             auths_config.update_current_maas(maas_provider.name)
-            client.reload(auths_config)
             logging.info("Success to use MaaS: {}".format(maas_provider.name))
+            maas_list()
+            list_current_config()
 
 """
 Read environemnt variable or request user to input API KEY for MaaS.
@@ -90,28 +94,67 @@ def maas_reset(name: str) -> None:
 List the available models for MaaS.
 """
 def model_list():
-    logging.info("Listing models...")
-    
+    logging.info("Listing models from {}".format(auths_config.get_current_maas()))
+    base_url = maas_config.get_provider(auths_config.get_current_maas()).url
+    api_key = auths_config.get_auth(auths_config.get_current_maas()).api_key
+    openai_util = OpenaiUtil(base_url, api_key)
+
+    model_infos = openai_util.list_available_models()
+
+    # Construct table to print
+    data = [["ID", "Object", "Owned By"]]
+    align = ("left", "center", "center")
+    for model_info in model_infos:
+        data.append([model_info["id"], model_info["object"], model_info["owned_by"]])
+    print(tabulate(data, headers="firstrow", tablefmt="pretty", colalign=align))
+
 
 def model_use(name):
     # Update local config file
     auths_config.update_current_model(name)
-    client.reload(auths_config)
     logging.info("Success to use Model: {}".format(name))
+    list_current_config()
 
 def list_current_config():
-    print_maas_info = client.get_maas()
+    print_maas_info = auths_config.get_current_maas()
     if print_maas_info == "":
         print_maas_info = "NOT SET (Please run: basket maas use $name)"
     logging.info("Current maas: {}".format(print_maas_info))
 
-    print_model_info = client.get_model()
+    print_model_info = auths_config.get_current_model()
     if print_model_info == "":
         print_model_info = "NOT SET (Please run: basket model use $name)"
     logging.info("Current model: {}".format(print_model_info))
 
-def query(text):
-    logging.info(f"Querying with: {text}")
+def check_config() -> bool:
+    if auths_config.get_current_maas() == "":
+        logging.warning("Current MaaS is empty")
+        return False
+    if auths_config.get_current_model() == "":
+        logging.warning("Current model is empty")
+        return False
+    
+    if auths_config.get_auth(auths_config.get_current_maas()) == None or auths_config.get_auth(auths_config.get_current_maas()).api_key == "":
+        logging.warning("The API KEY for MaaS is empty")
+        return False
+    return True
+
+def chat(text):
+    logging.info(f"chat with: {text}")
+
+    if check_config() == False:
+        logging.error("Please run 'basket use maas' and 'basket use model' or reset API KEY")
+        list_current_config()
+        return
+    
+    base_url = maas_config.get_provider(auths_config.get_current_maas()).url
+    api_key = auths_config.get_auth(auths_config.get_current_maas()).api_key
+    model = auths_config.get_current_model()
+
+    openai_util = OpenaiUtil(base_url, api_key, model)
+    output = openai_util.chat(text)
+    print(output)
+
 
 def main():
     parser = argparse.ArgumentParser(description="The MaaS management tool")
@@ -134,11 +177,11 @@ def main():
     model_use_parser.add_argument("name", type=str, help="Name of the model to use")
 
     # Config command
-    query_parser = subparsers.add_parser("config", help="List the current config")
+    config_parser = subparsers.add_parser("config", help="List the current config")
 
-    # Query command
-    query_parser = subparsers.add_parser("query", help="Perform a query")
-    query_parser.add_argument("text", type=str, help="Query text")
+    # Chat command
+    chat_parser = subparsers.add_parser("chat", help="Chat with MaaS model")
+    chat_parser.add_argument("text", type=str, help="Chat text")
 
     args = parser.parse_args()
 
@@ -156,8 +199,8 @@ def main():
             model_use(args.name)
     elif args.command == "config":
         list_current_config()
-    elif args.command == "query":
-        query(args.text)
+    elif args.command == "chat":
+        chat(args.text)
     else:
         parser.print_help()
 

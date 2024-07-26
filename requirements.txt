@@ -2,3 +2,4 @@ openai
 pyyaml
 tabulate
 coloredlogs
+httpx[socks]
