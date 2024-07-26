@@ -1,31 +1,17 @@
 maas:
+  - name: FreeModel
+    url: https://api.freemodel.ai/v1
   - name: OpenAI
     url: https://api.openai.com/v1
-    models:
-      - gpt-3.5-turbo-0125
-      - text-embedding-3-small
   - name: SiliconCloud
     url: https://api.siliconflow.cn/v1
   - name: DashScope
     url: https://dashscope.aliyuncs.com/compatible-mode/v1
-    models:
-      - qwen-max
   - name: OpenRouter
     url: https://openrouter.ai/api/v1
   - name: DeepSeek
     url: https://api.deepseek.com/v1
-    models:
-      - deepseek-7b-v1
-      - deepseek-chat
-      - deepseek-coder
-      - deepseek-v2-chat
   - name: MoonShot
     url: https://api.moonshot.cn/v1
-    models:
-      - moonshot-v1-32k
   - name: ZhiPu
     url: https://open.bigmodel.cn/api/paas/v4/
-  - name: Lepton
-    url: https://llama3-8b.lepton.run/api/v1/
-  - name: Anthropic
-    url: https://api.anthropic.com/v1
