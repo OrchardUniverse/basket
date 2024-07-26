@@ -9,7 +9,8 @@ class OpenaiUtil:
     Function to list available models
 
     Return data is like [{'id': 'qwen-turbo', 'created': 1714377100, 'object': 'model', 'owned_by': 'system'}]
-    Notice that DeepSeek does not return created column.
+    Notice that DeepSeek does not return created column. OpenRouter does not return object and ownedby columns.
+    
     """
     def list_available_models(self) -> list[str]:
         models = self.client.models.list()

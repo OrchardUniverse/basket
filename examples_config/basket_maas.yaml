@@ -3,7 +3,7 @@ maas:
     url: https://api.freemodel.ai/v1
   - name: OpenAI
     url: https://api.openai.com/v1
-  - name: SiliconCloud
+  - name: SiliconFlow
     url: https://api.siliconflow.cn/v1
   - name: DashScope
     url: https://dashscope.aliyuncs.com/compatible-mode/v1

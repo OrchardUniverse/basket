@@ -1,5 +1,20 @@
+import os
 import yaml
 from typing import List, Dict, Optional
+
+# Define the knowd MaaS configuration
+MAAS_CONFIG = {
+    'maas': [
+        {'name': 'FreeModel', 'url': 'https://api.freemodel.ai/v1'},
+        {'name': 'OpenAI', 'url': 'https://api.openai.com/v1'},
+        {'name': 'SiliconFlow', 'url': 'https://api.siliconflow.cn/v1'},
+        {'name': 'DashScope', 'url': 'https://dashscope.aliyuncs.com/compatible-mode/v1'},
+        {'name': 'OpenRouter', 'url': 'https://openrouter.ai/api/v1'},
+        {'name': 'DeepSeek', 'url': 'https://api.deepseek.com/v1'},
+        {'name': 'MoonShot', 'url': 'https://api.moonshot.cn/v1'},
+        {'name': 'ZhiPu', 'url': 'https://open.bigmodel.cn/api/paas/v4/'}
+    ]
+}
 
 class MaaSProvider:
     def __init__(self, name: str, url: str, models: Optional[List[str]] = None):
@@ -8,9 +23,27 @@ class MaaSProvider:
         self.models: List[str] = models or []
 
 class MaaSConfig:
-    def __init__(self, yaml_file: str):
+    def __init__(self):
+        home_dir = os.path.expanduser("~")
+        self.config_dir = os.path.join(home_dir, ".config")
+        self.file_path = os.path.join(self.config_dir, "basket_maas.yaml")
+        self.create_file_if_not_exists()
+
         self.providers: List[MaaSProvider] = []
-        self._load_config(yaml_file)
+        self._load_config(self.file_path)
+
+    def create_file_if_not_exists(self) -> None: 
+        # Check if the file exists
+        if not os.path.exists(self.file_path):
+            
+            # Ensure the config directory exists
+            os.makedirs(self.config_dir, exist_ok=True)
+
+            # Write the content to the file
+            with open(self.file_path, 'w') as file:
+                yaml.dump(MAAS_CONFIG, file)
+
+            print(f"Checked for {self.file_path}, and created if it didn't exist.")
 
     def _load_config(self, yaml_file: str) -> None:
         with open(yaml_file, 'r') as file:
@@ -49,17 +82,3 @@ class MaaSConfig:
 
     def list_maas_names(self) -> List[str]:
         return [provider.name for provider in self.providers]
-
-if __name__ == "__main__":
-    config = MaaSConfig("maas_config.yaml")
-    
-    print("Available providers:", config.list_providers())
-    
-    openai_provider = config.get_provider("OpenAI")
-    if openai_provider:
-        print(f"OpenAI URL: {openai_provider.url}")
-        print(f"OpenAI Models: {openai_provider.models}")
-    
-    deepseek_models = config.get_provider_models("DeepSeek")
-    if deepseek_models:
-        print(f"DeepSeek Models: {deepseek_models}")
