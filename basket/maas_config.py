@@ -32,7 +32,7 @@ class MaaSConfig:
 
     def get_provider(self, name: str) -> Optional[MaaSProvider]:
         for provider in self.providers:
-            if provider.name == name:
+            if provider.name.lower() == name.lower():
                 return provider
         return None
 
@@ -47,6 +47,8 @@ class MaaSConfig:
         provider = self.get_provider(name)
         return provider.models if provider else None
 
+    def list_maas_names(self) -> List[str]:
+        return [provider.name for provider in self.providers]
 
 if __name__ == "__main__":
     config = MaaSConfig("maas_config.yaml")

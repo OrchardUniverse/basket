@@ -1,3 +1,5 @@
+from auths_config import AuthsConfig
+
 class ModelClient:
     def __init__(self, maas: str = "", model: str = ""):
         self._maas: str = maas
@@ -10,7 +12,7 @@ class ModelClient:
     @maas.setter
     def maas(self, value: str) -> None:
         if not isinstance(value, str):
-            raise TypeError("maas must be a string")
+            raise TypeError("maas must be a string, but get {}".format(value))
         self._maas = value
 
     @property
@@ -34,6 +36,10 @@ class ModelClient:
 
     def get_model(self) -> str:
         return self.model
+    
+    def reload(self, auths_config: AuthsConfig) -> None:
+        self.set_maas(auths_config.get_current_maas())
+        self.set_model(auths_config.get_current_model())
 
 # 使用示例
 if __name__ == "__main__":
