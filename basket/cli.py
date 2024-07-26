@@ -4,7 +4,7 @@ import getpass
 from tabulate import tabulate
 
 from maas_config import MaaSConfig, MaaSProvider
-from auths_config import AuthsConfig
+from config.auths_config import AuthsConfig
 from openai_util.openai_util import OpenaiUtil
 
 import coloredlogs, logging
@@ -12,7 +12,7 @@ coloredlogs.install()
 
 # TODO: Hanle fail to parse yaml file
 maas_config = MaaSConfig("maas_config.yaml")
-auths_config = AuthsConfig("auths_config.yaml")
+auths_config = AuthsConfig()
 
 def maas_list():
     maas_providers = maas_config.providers
@@ -95,6 +95,14 @@ List the available models for MaaS.
 """
 def model_list():
     logging.info("Listing models from {}".format(auths_config.get_current_maas()))
+    if maas_config.get_provider(auths_config.get_current_maas()) == None:
+        logging.error("Please choose MaaS and run 'basket maas use $name'")
+        return
+    
+    if auths_config.get_current_maas().lower() == "zhipu":
+        logging.warning("Zhipu does not support geting model list from OpenAI API")
+        return
+
     base_url = maas_config.get_provider(auths_config.get_current_maas()).url
     api_key = auths_config.get_auth(auths_config.get_current_maas()).api_key
     openai_util = OpenaiUtil(base_url, api_key)
@@ -102,11 +110,10 @@ def model_list():
     model_infos = openai_util.list_available_models()
 
     # Construct table to print
-    data = [["ID", "Object", "Owned By"]]
-    align = ("left", "center", "center")
+    data = [["ID"]]
     for model_info in model_infos:
-        data.append([model_info["id"], model_info["object"], model_info["owned_by"]])
-    print(tabulate(data, headers="firstrow", tablefmt="pretty", colalign=align))
+        data.append([model_info["id"]])
+    print(tabulate(data, headers="firstrow", tablefmt="pretty", stralign="left"))
 
 
 def model_use(name):
