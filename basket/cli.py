@@ -3,15 +3,15 @@ import argparse
 import getpass
 from tabulate import tabulate
 
-from maas_config import MaaSConfig, MaaSProvider
-from config.auths_config import AuthsConfig
+from basket_config.maas_config import MaaSConfig
+from basket_config.auths_config import AuthsConfig
 from openai_util.openai_util import OpenaiUtil
 
 import coloredlogs, logging
 coloredlogs.install()
 
 # TODO: Hanle fail to parse yaml file
-maas_config = MaaSConfig("maas_config.yaml")
+maas_config = MaaSConfig()
 auths_config = AuthsConfig()
 
 def maas_list():
