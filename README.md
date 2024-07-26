@@ -2,14 +2,18 @@
 
 ## Introduction
 
-Basket is a common toolkit for all MaaS with OpenAI API. It provides a unified interface for interacting with different MaaS services, allowing developers to easily switch between different services without changing their code.
+Basket is the essential toolkit for seamless MaaS integration.
 
-## Features
+It provides a unified interface for interacting with different MaaS services, allowing developers to easily switch between different services without changing their code. It is the first free toolkit that allows developers to use LLM model services without registering or paying for them. Know more about [FreeModel](https://github.com/OrchardUniverse/FreeModel).
 
 - Unified interface for interacting with different MaaS services
-- Support for multiple MaaS services
 - Easy to use and integrate with existing projects
-- Extensible and customizable for different use cases
+- Manage API KEY for MaaS and easy to switch
+- Extensible and customizable for local and remote services
+- One step to chat with LLM service without configuration
+
+Refer to more [documentation](https://orchardai.github.io/basket/).
+
 
 ## Install
 
@@ -19,85 +23,53 @@ pip install orchard-basket
 
 ## Usage
 
-### Use MaaS
-
-List all available MaaS
+1. List all available MaaS
 
 ```
 basket maas list
 ```
 
-Choose the MaaS to use.
+2. Choose the MaaS to use.
 
 ```
-basket use FreeModel
+basket maas use FreeModel
 ```
 
-Reset the API Key for MaaS.
-
-```
-basket maas reset OpenAI
-```
-
-### Use Models
-
-List all available models
+3. List all available models
 
 ```
 basket model list
 ```
 
-Choose the model to use.
+4. Choose the model to use.
 
 ```
-basket use gpt-3.5-turbo
+basket model use qwen/qwen-7b-chat
 ```
 
-Reset the model.
-
-```
-basket model reset
-```
-
-### Use Models
-
-List all available models.
-
-```
-basket model list
-```
-
-Choose the model to use.
-
-```
-basket use gpt-3.5-turbo
-```
-
-### Chat with Models
-
-Use the MaaS and model to chat.
+5. Chat with Models
 
 ```
 basket chat "What is the meaning of life?"
 ```
 
-Use interactive mode to chat with historical dialogue.
+6. Switch to other MaaS or models
 
 ```
-basket chat
+basket maas use deepseek
 
-User> "What is the meaning of life?"
+basket model use deepseek-chat
 ```
 
-### Manage configuration
+## Contribution
 
-List the current chosen MaaS and model.
+Please help us to integrate with more MaaS.
 
-```
-basket config list
-```
-
-
-
-
-
+- [x] FreeModel
+- [x] OpenAI
+- [x] SiliconFlow
+- [x] DashScope
+- [x] OpenRouter
+- [x] DeepSeek
+- [x] MoonShot
+- [x] ZhiPu
