@@ -9,7 +9,7 @@ requirements = read_requirements(os.path.join(here, 'requirements.txt'))
 
 setup(
     name="orchard-basket",
-    version="0.1.0",
+    version="0.1.1",
     packages=find_packages(exclude=["tests*"]),
     install_requires=requirements,
     author="Orchard Universe",

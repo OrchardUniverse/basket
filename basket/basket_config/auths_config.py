@@ -34,9 +34,9 @@ class AuthsConfig:
         if not os.path.exists(self.file_path):
             # Define the content for the YAML file
             content = {
-                "current_maas": "",
-                "current_model": "",
-                "auths": []
+                "current_maas": "FreeModel",
+                "current_model": "arbitrary_model",
+                "auths": [{"name": "FreeModel", "api_key": "arbitrary_api_key"}]
             }
 
             # Ensure the config directory exists
