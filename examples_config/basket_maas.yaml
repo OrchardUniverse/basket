@@ -1,6 +1,6 @@
 maas:
   - name: FreeModel
-    url: https://api.freemodel.ai/v1
+    url: http://api.freemodel.cn:10000/v1
   - name: OpenAI
     url: https://api.openai.com/v1
   - name: SiliconFlow

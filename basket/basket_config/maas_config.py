@@ -5,7 +5,7 @@ from typing import List, Dict, Optional
 # Define the knowd MaaS configuration
 MAAS_CONFIG = {
     'maas': [
-        {'name': 'FreeModel', 'url': 'https://api.freemodel.ai/v1'},
+        {'name': 'FreeModel', 'url': 'http://api.freemodel.cn:10000/v1'},
         {'name': 'OpenAI', 'url': 'https://api.openai.com/v1'},
         {'name': 'SiliconFlow', 'url': 'https://api.siliconflow.cn/v1'},
         {'name': 'DashScope', 'url': 'https://dashscope.aliyuncs.com/compatible-mode/v1'},
