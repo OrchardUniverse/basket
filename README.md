@@ -66,11 +66,12 @@ basket model use deepseek-chat
 
 Please help us to integrate with more MaaS.
 
-- [x] FreeModel
-- [x] OpenAI
-- [x] SiliconFlow
-- [x] DashScope
-- [x] OpenRouter
-- [x] DeepSeek
-- [x] MoonShot
-- [x] ZhiPu
+- [x] [FreeModel](https://github.com/OrchardUniverse/FreeModel)
+- [x] [OpenAI](https://platform.openai.com/)
+- [x] [SiliconFlow](https://siliconflow.cn/siliconcloud)
+- [x] [DashScope](https://dashscope.aliyun.com/)
+- [x] [OpenRouter](https://openrouter.ai/)
+- [x] [DeepSeek](https://platform.deepseek.com/)
+- [x] [MoonShot](https://platform.moonshot.cn/)
+- [x] [ZhiPu](https://maas.aminer.cn/)
+- [x] [Lime](https://github.com/OrchardUniverse/lime)

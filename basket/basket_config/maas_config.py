@@ -12,7 +12,8 @@ MAAS_CONFIG = {
         {'name': 'OpenRouter', 'url': 'https://openrouter.ai/api/v1'},
         {'name': 'DeepSeek', 'url': 'https://api.deepseek.com/v1'},
         {'name': 'MoonShot', 'url': 'https://api.moonshot.cn/v1'},
-        {'name': 'ZhiPu', 'url': 'https://open.bigmodel.cn/api/paas/v4/'}
+        {'name': 'ZhiPu', 'url': 'https://open.bigmodel.cn/api/paas/v4/'},
+        {'name': 'Lime', 'url': 'http://127.0.0.1:10000/v1'}
     ]
 }
 

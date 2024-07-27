@@ -15,3 +15,5 @@ maas:
     url: https://api.moonshot.cn/v1
   - name: ZhiPu
     url: https://open.bigmodel.cn/api/paas/v4/
+  - name: Lime
+    url: http://127.0.0.1:10000/v1
