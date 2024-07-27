@@ -24,42 +24,46 @@ pip install orchard-basket
 
 ## Usage
 
-1. List all available MaaS
+1. Chat with FreeModel.
+
+```
+basket chat "Who are you"
+```
+
+2. List all available MaaS.
 
 ```
 basket maas list
 ```
 
-2. Choose the MaaS to use.
+3. Choose the MaaS to use.
 
 ```
-basket maas use FreeModel
+basket maas use siliconflow
 ```
 
-3. List all available models
+4. List all available models.
 
 ```
 basket model list
 ```
 
-4. Choose the model to use.
+5. Choose the model to use.
 
 ```
 basket model use qwen/qwen-7b-chat
 ```
 
-5. Chat with Models
+6. Chat with the model.
 
 ```
 basket chat "What is the meaning of life?"
 ```
 
-6. Switch to other MaaS or models
+8. Show current configuration.
 
 ```
-basket maas use deepseek
-
-basket model use deepseek-chat
+basket config
 ```
 
 ## Contribution
