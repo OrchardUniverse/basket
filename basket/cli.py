@@ -3,9 +3,12 @@ import argparse
 import getpass
 from tabulate import tabulate
 
-from basket.basket_config.maas_config import MaaSConfig
-from basket.basket_config.auths_config import AuthsConfig
-from basket.openai_util.openai_util import OpenaiUtil
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
+
+from basket_config.maas_config import MaaSConfig
+from basket_config.auths_config import AuthsConfig
+from openai_util.openai_util import OpenaiUtil
 
 import coloredlogs, logging
 coloredlogs.install()

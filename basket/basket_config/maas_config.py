@@ -5,14 +5,15 @@ from typing import List, Dict, Optional
 # Define the knowd MaaS configuration
 MAAS_CONFIG = {
     'maas': [
-        {'name': 'FreeModel', 'url': 'https://api.freemodel.ai/v1'},
+        {'name': 'FreeModel', 'url': 'http://topic-land.com:10000/v1'},
         {'name': 'OpenAI', 'url': 'https://api.openai.com/v1'},
         {'name': 'SiliconFlow', 'url': 'https://api.siliconflow.cn/v1'},
         {'name': 'DashScope', 'url': 'https://dashscope.aliyuncs.com/compatible-mode/v1'},
         {'name': 'OpenRouter', 'url': 'https://openrouter.ai/api/v1'},
         {'name': 'DeepSeek', 'url': 'https://api.deepseek.com/v1'},
         {'name': 'MoonShot', 'url': 'https://api.moonshot.cn/v1'},
-        {'name': 'ZhiPu', 'url': 'https://open.bigmodel.cn/api/paas/v4/'}
+        {'name': 'ZhiPu', 'url': 'https://open.bigmodel.cn/api/paas/v4/'},
+        {'name': 'Lime', 'url': 'http://127.0.0.1:10000/v1'}
     ]
 }
 
